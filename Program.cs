@@ -1,17 +1,31 @@
 ﻿using System;
+using System.IO;
 
 namespace mprog_lab_01
 {
     class Program
     {
-        public static void SW()
-        {
-            Console.WriteLine("Hello there!");
-        }
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            SW();
+            StreamReader sr = null;
+            try
+            {
+                sr = new StreamReader("/home/linuxmint/Desktop/doc");
+                Console.WriteLine(sr.ReadToEnd());
+            }
+            catch(FileNotFoundException ex)
+            {
+                Console.WriteLine($"File not found {ex.FileName}");
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+            }
+            finally
+            {
+                sr?.Close();
+            }
         }
     }
 }
